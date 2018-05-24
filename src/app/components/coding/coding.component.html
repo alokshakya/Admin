@@ -1,3 +1,6 @@
-<p>
-  coding works!
-</p>
+<div style="padding: 2%; margin: 0.5%;">
+  <mat-tab-group>
+      <mat-tab label="Write"><textarea [(ngModel)]="markdownContent" class="textinput"></textarea></mat-tab>
+      <mat-tab label="Preview"><app-markdown [data]='markdownContent'></app-markdown></mat-tab>
+  </mat-tab-group>
+</div>

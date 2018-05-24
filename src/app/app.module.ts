@@ -9,11 +9,14 @@ import {MatButtonModule,
         MatToolbarModule,
         MatListModule,
         MatGridListModule,
-        MatIconModule,
         MatSpinner,
         MatProgressSpinnerModule,
         MatSelectModule,
-        MatTabsModule} from '@angular/material';
+        MatTabsModule,
+        MatInputModule
+        } from '@angular/material';
+import {MatFormFieldModule} from '@angular/material/form-field';
+
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppComponent } from './app.component';
 import 'hammerjs';
@@ -24,12 +27,19 @@ import { RouterModule, Routes } from '@angular/router';
 import { RoutingModule } from './routing/routing.module';
 import { HttpModule } from '@angular/http';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { McqComponent } from './components/mcq/mcq.component';
 import { CodingComponent } from './components/coding/coding.component';
+import { MarkdownComponent } from './components/markdown/markdown.component';
+import { MarkdownService } from './services/markdown.service';
+import { LoginComponent } from './components/login/login.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import { AuthService } from './services/auth.service';
+import { ProcessHttpMsgService } from './services/process-http-msg.service';
 
 
 @NgModule({
@@ -38,7 +48,10 @@ import { CodingComponent } from './components/coding/coding.component';
     HeaderComponent,
     FooterComponent,
     McqComponent,
-    CodingComponent
+    CodingComponent,
+    MarkdownComponent,
+    LoginComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -46,14 +59,16 @@ import { CodingComponent } from './components/coding/coding.component';
     MatButtonModule, MatCheckboxModule,
     MatProgressSpinnerModule, MatCardModule,
     MatToolbarModule, MatListModule, 
-    MatIconModule, MatGridListModule,MatSelectModule,MatTabsModule,
+    MatGridListModule,MatSelectModule,MatTabsModule,
     FlexLayoutModule,
     RoutingModule,
-  
     HttpModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatFormFieldModule
   ],
-  providers: [],
+  providers: [MarkdownService,AuthService,ProcessHttpMsgService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
