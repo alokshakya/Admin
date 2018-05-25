@@ -41,6 +41,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AuthService } from './services/auth.service';
+import { DataService } from './services/data.service';
 import { ProcessHttpMsgService } from './services/process-http-msg.service';
 
 
@@ -72,7 +73,7 @@ import { ProcessHttpMsgService } from './services/process-http-msg.service';
     MatMenuModule,
     MatIconModule
   ],
-  providers: [MarkdownService,AuthService,ProcessHttpMsgService],
+  providers: [MarkdownService,AuthService, DataService, ProcessHttpMsgService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

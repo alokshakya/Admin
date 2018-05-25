@@ -1,13 +1,28 @@
 <div style="padding: 2%; margin: 0.5%;">
   <mat-tab-group>
       <mat-tab label="Write">
+        <br>
+          <span [hidden]="!titleErr" style="color: red;">Title Must be Entered!</span>
         <textarea style="width: 99%;" [(ngModel)]="title" placeholder="Title"></textarea>
+
+        <span [hidden]="!markdownContentErr" style="color: red;">Description in Markdown format Must be Entered!</span>
         <textarea [(ngModel)]="markdownContent" class="textinput"></textarea>
+
+        <span [hidden]="!sampleInputErr" style="color: red;">Sample Input Must be Provided!</span>
         <textarea style="width: 99%;" [(ngModel)]="sampleInput" placeholder="Sample Input"></textarea>
+
+        <span [hidden]="!sampleOutputErr" style="color: red;"> Sample Output must be Provided!</span>
         <textarea style="width: 99%;" [(ngModel)]="sampleOutput" placeholder="Sample Output"></textarea>
+
+        <span [hidden]="!submitInputErr" style="color: red;">Submit Input Must be Provided!</span>
         <textarea style="width: 99%;" [(ngModel)]="submitInput" placeholder="Submit Input"></textarea>
+
+        <span [hidden]="!submitOutputErr" style="color: red;">Submit Output Must be Provided!</span>
         <textarea style="width: 99%;" [(ngModel)]="submitOutput" placeholder="Submit Output"></textarea>
+        
       </mat-tab>
+      <br>
       <mat-tab label="Preview"><app-markdown [data]='markdownContent'></app-markdown></mat-tab>
   </mat-tab-group>
+  <button mat-raised-button style="background-color:navy; color: aliceblue;" (click)="submitQuestion()">Submit Question</button>
 </div>

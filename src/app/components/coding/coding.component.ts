@@ -1,5 +1,6 @@
 import { Component,ViewEncapsulation, OnInit } from '@angular/core';
 import { MarkdownService } from '../../services/markdown.service';
+import { DataService } from '../../services/data.service';
 import * as extras from 'marked-extras';
 @Component({
   selector: 'app-coding',
@@ -8,6 +9,21 @@ import * as extras from 'marked-extras';
   styleUrls: ['./coding.component.scss']
 })
 export class CodingComponent implements OnInit {
+  title:string='';
+  sampleInput:string='';
+  sampleOutput:string='';
+  submitInput:string='';
+  submitOutput:string='';
+  submitting:boolean=false;
+  Response:any;
+  errMess:string;
+  titleErr:boolean=false;
+  markdownContentErr:boolean=false;
+  sampleInputErr:boolean=false;
+  sampleOutputErr:boolean=false;
+  submitInputErr:boolean=false;
+  submitOutputErr:boolean=false;
+  submittedQuestionSuccess:boolean=false;
   public markdownContent: string = `
   # Headers
   
@@ -53,7 +69,8 @@ export class CodingComponent implements OnInit {
   
   
   `;
-    constructor(private _markdown: MarkdownService) { }
+    constructor(private _markdown: MarkdownService,
+                private data: DataService) { }
   
     ngOnInit() {
       extras.init();
@@ -83,6 +100,58 @@ export class CodingComponent implements OnInit {
       this._markdown.renderer.blockquote = (quote: string) => {
         return `<blockquote class="king-quote">${quote}</blockquote>`;
       }
+    }
+    submitQuestion(){
+      if(this.validate()){
+        this.titleErr=this.markdownContentErr=this.sampleInputErr=this.sampleOutputErr=false;
+        this.submitInputErr=this.submitOutputErr=false;
+        this.data.addCodingQuestion(this.title,this.markdownContent,this.sampleInput,
+          this.sampleOutput,this.submitInput,this.submitOutput)
+          .subscribe(res => {  this.submitting=false; 
+          //do extra actions on received data
+          this.Response=res;
+
+          this.submittedQuestionSuccess=true;
+          console.log(res);
+          },
+          errmess => {this.errMess = <any>errmess; this.submitting=false;});
+      }
+      else{
+          alert('Enter all fields');
+      }
+
+    }
+    validate():boolean{
+      if(this.title===''){
+        this.titleErr=true;
+        
+      }
+      if(this.markdownContent===''){
+        this.markdownContentErr=true;
+        
+      }
+      if(this.sampleInput===''){
+        this.sampleInputErr=true;
+        
+      }
+      if(this.sampleOutput===''){
+        this.sampleOutputErr=true;
+        
+      }
+      if(this.submitInput===''){
+        this.submitInputErr=true;
+        
+      }
+      if(this.submitOutput===''){
+        this.submitOutputErr=true;
+        
+      }
+      if(this.title==='' || this.markdownContent==='' || 
+      this.sampleInput==='' || this.sampleOutput==='' ||
+      this.submitInput==='' || this.submitOutput===''){
+        return false;
+      }
+      return true;
     }
     
 }
