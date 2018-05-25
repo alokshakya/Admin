@@ -1,6 +1,15 @@
 
 <div fxFlexLayout>
-  <div fxFlexOffset="30%" fxFlexOffset.lt-sm="5%" fxFlexAlign="center" fxFlex="40%" fxFlex.lt-sm="90%">
+  <div fxFlexOffset="30%" fxFlexOffset.xl="40%"
+  fxFlexOffset.lg="35%"
+  fxFlexOffset.md="30%"
+  fxFlexOffset.sm="20%"
+  fxFlexOffset.xs="10%"  fxFlexAlign="center" fxFlex="40%" 
+  fxFlex.xl="20%"
+  fxFlex.lg="30%"
+  fxFlex.md="40%"
+  fxFlex.sm="60%"
+  fxFlex.xs="80%">
       <h3>Login to Continue...</h3>
       <form novalidate [formGroup]="loginForm" (ngSubmit)="onSubmit()">
           <p>
@@ -37,6 +46,10 @@
       <div *ngIf="loginResponse">
           <h2>loginResponse</h2>
           <h4>{{loginResponse.auth_token}}</h4>
+        </div>
+        <div>
+          isContentManager : {{auth.isContentManager()}}<hr>
+          isLoggedIn : {{auth.isLoggedIn()}}
         </div>
       
   </div>

@@ -4,10 +4,34 @@
           <span><img src="/assets/images/logo.png" height=30 width=41></span>
           <div style="align-content: right">
             <a mat-button routerLink="/mcq" routerLinkActive="active"><span class="fa fa-list fa-lg"></span> MCQ</a>
+            <a mat-button routerLink="/dashboard" routerLinkActive="active"><span class="fa fa-list fa-lg"></span> Dashboard</a>
             <a mat-button routerLink="/coding" routerLinkActive="active"><span class="fa fa-list fa-lg"></span> Coding</a>
-            <a mat-button routerLink="/login" routerLinkActive="active"><span class="fa fa-list fa-lg"></span>  Login</a>
+            <a mat-button *ngIf="!auth.isLoggedIn()"  routerLink="/login" routerLinkActive="active"><span class="fa fa-list fa-lg"></span>  Login</a>
+            <a mat-button *ngIf="auth.isLoggedIn() && !submitting" (click)="Logout()"><span class="fa fa-list fa-lg"></span>  Logout</a>
+            <a mat-button *ngIf="submitting" ><span class="fa fa-list fa-lg"></span>  Logging Out..</a>
+            
         </div>
       </mat-toolbar>
   </div>
+  <div fxFlex="100%" fxShow.xs="true" fxHide.gt-xs="true">
+    <mat-toolbar color="primary" >
+        <span><img src="/assets/images/logo.png" height=30 width=41></span>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+            
+
+        </button>
+        <mat-menu #menu="matMenu">
+          <div >
+            <a mat-button routerLink="/mcq" routerLinkActive="active"><span class="fa fa-list fa-lg"></span> MCQ</a>
+            <a mat-button routerLink="/dashboard" routerLinkActive="active"><span class="fa fa-list fa-lg"></span> Dashboard</a>
+            <a mat-button routerLink="/coding" routerLinkActive="active"><span class="fa fa-list fa-lg"></span> Coding</a>
+            <a mat-button *ngIf="!auth.isLoggedIn()"  routerLink="/login" routerLinkActive="active"><span class="fa fa-list fa-lg"></span>  Login</a>
+            <a mat-button *ngIf="auth.isLoggedIn() && !submitting" (click)="Logout()"><span class="fa fa-list fa-lg"></span>  Logout</a>
+            <a mat-button *ngIf="submitting" ><span class="fa fa-list fa-lg"></span>  Logging Out..</a>
+        </div>
+        </mat-menu>
+    </mat-toolbar>
+</div>
 
 </div>

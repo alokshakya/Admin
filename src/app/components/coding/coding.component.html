@@ -1,6 +1,13 @@
 <div style="padding: 2%; margin: 0.5%;">
   <mat-tab-group>
-      <mat-tab label="Write"><textarea [(ngModel)]="markdownContent" class="textinput"></textarea></mat-tab>
+      <mat-tab label="Write">
+        <textarea style="width: 99%;" [(ngModel)]="title" placeholder="Title"></textarea>
+        <textarea [(ngModel)]="markdownContent" class="textinput"></textarea>
+        <textarea style="width: 99%;" [(ngModel)]="sampleInput" placeholder="Sample Input"></textarea>
+        <textarea style="width: 99%;" [(ngModel)]="sampleOutput" placeholder="Sample Output"></textarea>
+        <textarea style="width: 99%;" [(ngModel)]="submitInput" placeholder="Submit Input"></textarea>
+        <textarea style="width: 99%;" [(ngModel)]="submitOutput" placeholder="Submit Output"></textarea>
+      </mat-tab>
       <mat-tab label="Preview"><app-markdown [data]='markdownContent'></app-markdown></mat-tab>
   </mat-tab-group>
 </div>

@@ -19,11 +19,14 @@ export class LoginComponent implements OnInit {
   submitting:boolean;
   preview:boolean;
   loginResponse:LoginResponse;
+  contentManager:boolean;
+  
   
   constructor(private fb: FormBuilder,
               private auth: AuthService,
               private router: Router) {
     this.createForm();
+    this.contentManager=false;
    }
   
 
@@ -66,7 +69,8 @@ export class LoginComponent implements OnInit {
         //do extra actions on received data
         this.loginResponse=loginres;
         localStorage.setItem('user',JSON.stringify(this.loginResponse));
-        this.router.navigateByUrl('/coding');
+        this.contentManager=this.auth.isContentManager();
+        this.router.navigateByUrl('/dashboard');
         //after successfull login navigate to dashboard
         console.log(loginres);
        },

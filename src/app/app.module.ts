@@ -13,7 +13,9 @@ import {MatButtonModule,
         MatProgressSpinnerModule,
         MatSelectModule,
         MatTabsModule,
-        MatInputModule
+        MatInputModule,
+        MatMenuModule,
+        MatIconModule
         } from '@angular/material';
 import {MatFormFieldModule} from '@angular/material/form-field';
 
@@ -66,7 +68,9 @@ import { ProcessHttpMsgService } from './services/process-http-msg.service';
     FormsModule,
     ReactiveFormsModule,
     MatInputModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatMenuModule,
+    MatIconModule
   ],
   providers: [MarkdownService,AuthService,ProcessHttpMsgService],
   bootstrap: [AppComponent]
