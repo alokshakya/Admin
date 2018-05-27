@@ -27,6 +27,9 @@ export class LoginComponent implements OnInit {
               private router: Router) {
     this.createForm();
     this.contentManager=false;
+    if(this.auth.isLoggedIn()){
+      this.router.navigateByUrl('/dashboard');
+    }
    }
   
 
