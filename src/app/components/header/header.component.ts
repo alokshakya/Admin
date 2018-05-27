@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
   errMess:string;
   submitting:boolean;
-  constructor(private auth: AuthService, private router: Router) {this.submitting=false; }
+  constructor(public auth: AuthService, private router: Router) {this.submitting=false; }
 
   ngOnInit() {
     

@@ -13,7 +13,7 @@ export class DashboardComponent implements OnInit {
   mcqQuestions:McqQuestion[];
   errMess:string;
   mcqErrMess:string;
-  constructor(private auth: AuthService,
+  constructor(public auth: AuthService,
               private data: DataService) {
                 this.data.fetchCodingQuestions()
                 .subscribe(res => { 

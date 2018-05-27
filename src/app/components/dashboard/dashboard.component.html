@@ -23,7 +23,16 @@
                 </div>
         <div *ngFor="let mcq_ques of mcqQuestions">
             
-            <app-markdown [data]='mcq_ques.description'></app-markdown><br><hr>
+            <app-markdown [data]='mcq_ques.description'></app-markdown><br>
+            <mat-radio-group>
+                <mat-radio-button value="mcq_ques.optionA">{{mcq_ques.optionA}}</mat-radio-button><br>
+                <mat-radio-button value="mcq_ques.optionB">{{mcq_ques.optionB}}</mat-radio-button><br>
+                <mat-radio-button value="mcq_ques.optionC">{{mcq_ques.optionC}}</mat-radio-button><br>
+                <mat-radio-button value="mcq_ques.optionD">{{mcq_ques.optionD}}</mat-radio-button><br>
+            </mat-radio-group><br>
+            <h4 style="color: green;">Answer : {{mcq_ques.answer}}</h4>
+            <hr>
+
 
         </div>
     </mat-tab>
