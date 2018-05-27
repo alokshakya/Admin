@@ -1,1 +1,30 @@
 <h3>Welcome {{auth.getUsername()}}</h3>
+<mat-tab-group >
+    <mat-tab label="Coding Questions Submitted">
+            <div [hidden]="codingQuestions || errMess" >
+                    <mat-spinner><h4>Loading Tests . . . Please Wait</h4></mat-spinner>
+                </div>
+                <div *ngIf="errMess">
+                    <h2>Error</h2>
+                    <h4>{{errMess}}</h4>
+                </div>
+        <div *ngFor="let cques of codingQuestions">
+            <app-markdown [data]="cques.description"></app-markdown><br><hr>
+
+        </div>
+    </mat-tab>
+    <mat-tab label="Mcq Questions Submitted">
+            <div [hidden]="mcqQuestions || mcqErrMess" >
+                    <mat-spinner><h4>Loading Tests . . . Please Wait</h4></mat-spinner>
+                </div>
+                <div *ngIf="mcqErrMess">
+                    <h2>Error</h2>
+                    <h4>{{mcqErrMess}}</h4>
+                </div>
+        <div *ngFor="let mcq_ques of mcqQuestions">
+            
+            <app-markdown [data]='mcq_ques.description'></app-markdown><br><hr>
+
+        </div>
+    </mat-tab>
+</mat-tab-group>

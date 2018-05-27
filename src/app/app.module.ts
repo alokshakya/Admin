@@ -16,7 +16,8 @@ import {MatButtonModule,
         MatInputModule,
         MatMenuModule,
         MatIconModule,
-        MatRadioModule
+        MatRadioModule,
+        MatDialogModule
         } from '@angular/material';
 import {MatFormFieldModule} from '@angular/material/form-field';
 
@@ -76,7 +77,8 @@ import { McqtestComponent } from './components/mcqtest/mcqtest.component';
     MatMenuModule,
     MatIconModule,
     MatRadioModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDialogModule
   ],
   providers: [MarkdownService,AuthService, DataService, ProcessHttpMsgService],
   bootstrap: [AppComponent]

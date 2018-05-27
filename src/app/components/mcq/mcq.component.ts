@@ -3,6 +3,9 @@ import { MarkdownService } from '../../services/markdown.service';
 import { DataService } from '../../services/data.service';
 import * as extras from 'marked-extras';
 
+import { Params, ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+
 @Component({
   selector: 'app-mcq',
   encapsulation: ViewEncapsulation.None,
@@ -10,6 +13,7 @@ import * as extras from 'marked-extras';
   styleUrls: ['./mcq.component.scss']
 })
 export class McqComponent implements OnInit {
+  testId:number;
   title:string='';
   optionA:string='';
   optionB:string='';
@@ -25,54 +29,24 @@ export class McqComponent implements OnInit {
   sampleOutputErr:boolean=false;
   submitInputErr:boolean=false;
   submitOutputErr:boolean=false;
-  submittedQuestionSuccess:boolean=false;
+  submittedQuestionSuccess:boolean;
+  mcqform:boolean;
   public markdownContent: string = `
   # Headers
   
   # H1
   ## H2
   ### H3
-  #### H4
-  ##### H5
-  ###### H6
   
-  Alternatively, for H1 and H2, an underline-ish style:
-  
-  Alt-H1
-  ======
-  
-  Alt-H2
-  ------
-  
-  
-  
-  # Emphasis
-  
-  Emphasis, aka italics, with *asterisks* or _underscores_.
-  
-  Strong emphasis, aka bold, with **asterisks** or __underscores__.
-  
-  Combined emphasis with **asterisks and _underscores_**.
-  
-  # Tables
-  
-  Colons can be used to align columns.
-  
-  | Tables        | Are           | Cool  |
-  | ------------- |:-------------:| -----:|
-  | col 3 is      | right-aligned | $1600 |
-  | col 2 is      | centered      |   $12 |
-  | zebra stripes | are neat      |    $1 |
-  
-  There must be at least 3 dashes separating each header cell.
-  The outer pipes (|) are optional, and you don't need to make the
-  raw Markdown line up prettily. You can also use inline Markdown.
-  
-  
+  > Paragraph
   
   `;
     constructor(private _markdown: MarkdownService,
-                private data: DataService) { }
+                private data: DataService,
+                private route: ActivatedRoute,
+                private location: Location) {
+                  this.testId = +this.route.snapshot.params['id'];
+                 }
   
     ngOnInit() {
       extras.init();
@@ -102,18 +76,22 @@ export class McqComponent implements OnInit {
       this._markdown.renderer.blockquote = (quote: string) => {
         return `<blockquote class="king-quote">${quote}</blockquote>`;
       }
+      this.submittedQuestionSuccess=false;
+      this.mcqform=true;
     }
     submitQuestion(){
       if(this.validate()){
+        this.submitting=true;
         this.titleErr=this.markdownContentErr=this.sampleInputErr=this.sampleOutputErr=false;
         this.submitInputErr=this.submitOutputErr=false;
         this.data.addMcqQuestion(this.answer,this.markdownContent,this.optionA,
-          this.optionB,this.optionC,this.optionD)
+          this.optionB,this.optionC,this.optionD,this.testId)
           .subscribe(res => {  this.submitting=false; 
           //do extra actions on received data
           this.Response=res;
 
           this.submittedQuestionSuccess=true;
+          this.mcqform=false;
           console.log(res);
           },
           errmess => {this.errMess = <any>errmess; this.submitting=false;});
@@ -154,6 +132,14 @@ export class McqComponent implements OnInit {
         return false;
       }
       return true;
+    }
+
+    submitMore(){
+      this.mcqform=true;
+      this.submittedQuestionSuccess=false;
+    }
+    goBack(): void {
+      this.location.back();
     }
     
 }

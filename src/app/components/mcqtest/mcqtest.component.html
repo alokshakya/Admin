@@ -1,5 +1,5 @@
 <div fxFlexLayout>
-    <div fxFlexOffset.xl="20%"
+    <div fxFlexOffset.xl="20%" [hidden]="createTestshow"
     fxFlexOffset.lg="15%"
     fxFlexOffset.md="10%"
     fxFlexOffset.sm="5%"
@@ -18,16 +18,20 @@
     </div>
     <mat-list *ngIf="tests"> 
       <mat-list-item *ngFor="let Test of tests" [routerLink]="['/mcq', Test.id]">
-         <p>Title : {{ Test.title }}</p>
-         <p>Category : {{ Test.category }}</p>
-         <p>Category : {{ Test.created | date }}</p>
-         <p>Time Allowed : {{ Test.time }}</p> <hr>    
+         <p mat-line>Title : {{ Test.title }}</p>
+         <p mat-line>Category : {{ Test.category }}</p>
+         <p mat-line>Number of Questions : {{ Test.noOfQuestions }}</p>
+         <p mat-line>Time Allowed : {{ Test.time }}</p> 
+         <p mat-line>Created : {{ Test.created | date }}</p><hr>  
       </mat-list-item>
     </mat-list>
+    <a mat-raised-button style="background-color: darkblue; color: cornsilk; align-self: center;" (click)="createTestShow()"> Create New Test </a>
     </div>
   </div>
+  <hr>
+  
   <div fxFlexLayout>
-      <div fxFlexOffset.xl="20%"
+      <div fxFlexOffset.xl="20%" [hidden]="!createTestshow"
       fxFlexOffset.lg="15%"
       fxFlexOffset.md="10%"
       fxFlexOffset.sm="5%"
@@ -37,8 +41,9 @@
       fxFlex.md="85%"
       fxFlex.sm="90%"
       fxFlex.xs="100%">
-      <div [hidden]="submitting || creatingtestErrMess" >
-          <mat-spinner><h4>submitting Test . . . Please Wait</h4></mat-spinner>
+      <a mat-raised-button style="background-color: darkblue; color: cornsilk; align-self: center;" (click)="createTestShowFalse()"> Add Question to already existing Test </a>
+      <div [hidden]="!creatingTest" >
+          <mat-spinner><h4>Creating Test . . . Please Wait</h4></mat-spinner>
       </div>
       <div *ngIf="creatingtestErrMess">
           <h2>Error</h2>
