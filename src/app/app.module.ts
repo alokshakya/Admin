@@ -46,6 +46,7 @@ import { AuthService } from './services/auth.service';
 import { DataService } from './services/data.service';
 import { ProcessHttpMsgService } from './services/process-http-msg.service';
 import { McqtestComponent } from './components/mcqtest/mcqtest.component';
+import { AuthGuard } from './guards/auth.guard';
 
 
 @NgModule({
@@ -80,7 +81,7 @@ import { McqtestComponent } from './components/mcqtest/mcqtest.component';
     MatSelectModule,
     MatDialogModule
   ],
-  providers: [MarkdownService,AuthService, DataService, ProcessHttpMsgService],
+  providers: [MarkdownService,AuthService, DataService,AuthGuard, ProcessHttpMsgService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
