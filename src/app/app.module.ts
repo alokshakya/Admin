@@ -15,7 +15,8 @@ import {MatButtonModule,
         MatTabsModule,
         MatInputModule,
         MatMenuModule,
-        MatIconModule
+        MatIconModule,
+        MatRadioModule
         } from '@angular/material';
 import {MatFormFieldModule} from '@angular/material/form-field';
 
@@ -43,6 +44,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from './services/auth.service';
 import { DataService } from './services/data.service';
 import { ProcessHttpMsgService } from './services/process-http-msg.service';
+import { McqtestComponent } from './components/mcqtest/mcqtest.component';
 
 
 @NgModule({
@@ -54,7 +56,8 @@ import { ProcessHttpMsgService } from './services/process-http-msg.service';
     CodingComponent,
     MarkdownComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    McqtestComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +74,9 @@ import { ProcessHttpMsgService } from './services/process-http-msg.service';
     MatInputModule,
     MatFormFieldModule,
     MatMenuModule,
-    MatIconModule
+    MatIconModule,
+    MatRadioModule,
+    MatSelectModule
   ],
   providers: [MarkdownService,AuthService, DataService, ProcessHttpMsgService],
   bootstrap: [AppComponent]

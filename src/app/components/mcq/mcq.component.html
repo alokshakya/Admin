@@ -1,3 +1,41 @@
-<p>
-  mcq works!
-</p>
+<div style="padding: 2%; margin: 0.5%;">
+  
+  <mat-tab-group>
+      <mat-tab label="Write">
+        <br>
+          
+        <span [hidden]="!markdownContentErr" style="color: red;">Description in Markdown format Must be Entered!</span>
+        <textarea [(ngModel)]="markdownContent" class="textinput"></textarea>
+
+        <span [hidden]="!sampleInputErr" style="color: red;">Option A Must be Provided!</span>
+        <textarea style="width: 99%;" [(ngModel)]="optionA" placeholder="Option A"></textarea>
+
+        <span [hidden]="!sampleOutputErr" style="color: red;"> Option B must be Provided!</span>
+        <textarea style="width: 99%;" [(ngModel)]="optionB" placeholder="Option B"></textarea>
+
+        <span [hidden]="!submitInputErr" style="color: red;">Option C Must be Provided!</span>
+        <textarea style="width: 99%;" [(ngModel)]="optionC" placeholder="Option C"></textarea>
+
+        <span [hidden]="!submitOutputErr" style="color: red;">Option D Must be Provided!</span>
+        <textarea style="width: 99%;" [(ngModel)]="optionD" placeholder="Option D"></textarea>
+
+        <span [hidden]="!titleErr" style="color: red;">Answer Must be Provided!</span>
+        <textarea style="width: 99%;" [(ngModel)]="answer" placeholder="Answer"></textarea>
+        
+      </mat-tab>
+      <br>
+      <mat-tab label="Preview">
+        <app-markdown [data]='markdownContent'></app-markdown><br>
+        <mat-radio-group>
+            <mat-radio-button value="optionA">{{optionA}}</mat-radio-button><br>
+            <mat-radio-button value="optionB">{{optionB}}</mat-radio-button><br>
+            <mat-radio-button value="optionC">{{optionC}}</mat-radio-button><br>
+            <mat-radio-button value="optionD">{{optionD}}</mat-radio-button><br>
+          </mat-radio-group>
+
+      </mat-tab>
+  </mat-tab-group>
+  <br>
+  <button mat-raised-button style="background-color:navy; color: aliceblue;" (click)="submitQuestion()">Submit Question</button>
+
+</div>

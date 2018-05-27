@@ -1,0 +1,85 @@
+<div fxFlexLayout>
+    <div fxFlexOffset.xl="20%"
+    fxFlexOffset.lg="15%"
+    fxFlexOffset.md="10%"
+    fxFlexOffset.sm="5%"
+    fxFlexOffset.xs="0%"  fxFlexAlign="center" 
+    fxFlex.xl="70%"
+    fxFlex.lg="80%"
+    fxFlex.md="85%"
+    fxFlex.sm="90%"
+    fxFlex.xs="100%">
+    <div [hidden]="tests || errMess" >
+        <mat-spinner><h4>Loading Tests . . . Please Wait</h4></mat-spinner>
+    </div>
+    <div *ngIf="errMess">
+        <h2>Error</h2>
+        <h4>{{errMess}}</h4>
+    </div>
+    <mat-list *ngIf="tests"> 
+      <mat-list-item *ngFor="let Test of tests" [routerLink]="['/mcq', Test.id]">
+         <p>Title : {{ Test.title }}</p>
+         <p>Category : {{ Test.category }}</p>
+         <p>Category : {{ Test.created | date }}</p>
+         <p>Time Allowed : {{ Test.time }}</p> <hr>    
+      </mat-list-item>
+    </mat-list>
+    </div>
+  </div>
+  <div fxFlexLayout>
+      <div fxFlexOffset.xl="20%"
+      fxFlexOffset.lg="15%"
+      fxFlexOffset.md="10%"
+      fxFlexOffset.sm="5%"
+      fxFlexOffset.xs="0%"  fxFlexAlign="center" 
+      fxFlex.xl="70%"
+      fxFlex.lg="80%"
+      fxFlex.md="85%"
+      fxFlex.sm="90%"
+      fxFlex.xs="100%">
+      <div [hidden]="submitting || creatingtestErrMess" >
+          <mat-spinner><h4>submitting Test . . . Please Wait</h4></mat-spinner>
+      </div>
+      <div *ngIf="creatingtestErrMess">
+          <h2>Error</h2>
+          <h4>{{creatingtestErrMess}}</h4>
+      </div>
+      <div>
+      <h3>Create a Test</h3>
+      <form class="createtestform">
+        <p>Title of Test : &nbsp;&nbsp;
+            <mat-form-field>
+                    <mat-label>Title</mat-label>
+                <input matInput placeholder="Title" type="text" [(ngModel)]="title" name="title">
+              </mat-form-field> 
+        </p>
+
+        <p>Select Category : &nbsp;&nbsp;
+            <mat-form-field>
+                    
+                <mat-select [(value)]="category">
+                    <mat-option *ngFor="let ca of categories" [value]="ca">{{ca}}</mat-option>
+                  </mat-select>
+            </mat-form-field> 
+        </p>
+        <p>Number of Questions : &nbsp;&nbsp;
+            <mat-form-field>
+                    <mat-label>Number of Questions</mat-label>
+                <input matInput placeholder="Number of Questions" type="number" [(ngModel)]="noOfQuestions" name="noOfQuestions">
+              </mat-form-field> 
+        </p>
+
+        <p>Time Allowed in minutes : &nbsp;&nbsp;
+                <mat-form-field>
+                        <mat-label>Time Allowed in minutes</mat-label>
+                    <input matInput placeholder="Time Allowed" type="number" [(ngModel)]="time" name="time">
+                  </mat-form-field> 
+        </p> 
+      <a mat-raised-button style="background-color: darkblue; color: cornsilk; align-self: center;" (click)="createTest()"> Create Test </a>
+    </form>
+      
+      </div>
+      </div>
+    </div>
+
+    

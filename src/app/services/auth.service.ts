@@ -93,4 +93,7 @@ export class AuthService {
     }
     
   }
+  getUsername():string{
+      return JSON.parse(localStorage.getItem('user')).username;
+  }
 }

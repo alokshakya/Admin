@@ -9,6 +9,7 @@ import 'rxjs/add/operator/delay';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import { Test } from '../shared/test';
 @Injectable()
 export class DataService {
   url:string;
@@ -40,26 +41,7 @@ export class DataService {
           }
         }
       );
-      let dataQ=JSON.stringify(
-        {
-          "type": "insert",
-          "args": {
-              "table": "CodingQuestions",
-              "objects": [
-                  {
-                      "title": title,
-                      "description": description,
-                      "sampleInput": sampleInput,
-                      "sampleOutput": sampleOutput,
-                      "submitInput": submitInput,
-                      "submitOutput": submitOutput,
-                      "author": user.hasura_id
-                  }
-              ],
-              "returning":["id"]
-          }
-      }
-      );
+
 
     let Hsheaders = new Headers();
     Hsheaders.append('Content-Type', 'application/json');
@@ -73,5 +55,137 @@ export class DataService {
           .catch(error => { return this.processHttpMsgService.handleError(error);}); 
  
     }
+    //add mcq question
+  addMcqQuestion(answer:string, description:string,
+                        optionA:string,optionB:string,
+                        optionC:string,optionD:string):Observable<any>{
+      var user=JSON.parse(localStorage.getItem('user'));
+      let hadata=JSON.stringify(
+        {
+          "type" : "insert",
+          "args" : {
+             "table":"CodingQuestions",
+             "objects":[
+               {
+                 "answer":answer,
+                 "description":description,
+                 "optionA":optionA,
+                 "optionB":optionB,
+                 "optionC":optionC,
+                 "optionD":optionD,
+                 "author":user.hasura_id
+               }
+             ]
+          }
+        }
+      );
+
+
+    let Hsheaders = new Headers();
+    Hsheaders.append('Content-Type', 'application/json');
+    Hsheaders.append('Authorization', 'Bearer '+user.auth_token); 
+    Hsheaders.append('X-Hasura-Role', 'contentManager');  
+    let Hsopts = new RequestOptions();
+    Hsopts.headers = Hsheaders;
+    return this.http.post(this.url,hadata,Hsopts)
+          .map(res =>{console.log(res);  return this.processHttpMsgService.extractData(res);
+          })
+          .catch(error => { return this.processHttpMsgService.handleError(error);}); 
+ 
+    }
+    //add mcq question ends here
+    //function for fetching coding questions
+    fetchTests():Observable<Test[]>{
+      var user=JSON.parse(localStorage.getItem('user'));
+      let hadata=JSON.stringify(
+        {
+          "type" : "select",
+          "args" : {
+             "table":"McqTests",
+             "columns":[
+                 "id","title","category","noOfQuestions","time",
+                 "author","created" 
+             ]
+          }
+        }
+      );
+    let Hsheaders = new Headers();
+    Hsheaders.append('Content-Type', 'application/json');
+    Hsheaders.append('Authorization', 'Bearer '+user.auth_token); 
+    Hsheaders.append('X-Hasura-Role', 'contentManager');  
+    let Hsopts = new RequestOptions();
+    Hsopts.headers = Hsheaders;
+    return this.http.post(this.url,hadata,Hsopts)
+          .map(res =>{console.log(res);  return this.processHttpMsgService.extractData(res);
+          })
+          .catch(error => { return this.processHttpMsgService.handleError(error);}); 
+ 
+    }
+    fetchTest(id:number):Observable<Test>{
+      var user=JSON.parse(localStorage.getItem('user'));
+      let hadata=JSON.stringify(
+        {
+          "type" : "select",
+          "args" : {
+             "table":"McqTests",
+             "columns":[
+                 "id","title","category","noOfQuestions","Time",
+                 "author","created" 
+             ],
+             "where":{"id":id}
+          }
+        }
+      );
+      console.log('id from data service function fetch question '+id);
+    let Hsheaders = new Headers();
+    Hsheaders.append('Content-Type', 'application/json');
+    Hsheaders.append('Authorization', 'Bearer '+user.auth_token); 
+    Hsheaders.append('X-Hasura-Role', 'contentManager');  
+    let Hsopts = new RequestOptions();
+    Hsopts.headers = Hsheaders;
+    return this.http.post(this.url,hadata,Hsopts)
+          .map(res =>{console.log(res);  return this.processHttpMsgService.extractData(res);
+          })
+          .catch(error => { return this.processHttpMsgService.handleError(error);}); 
+ 
+    }
+
+    //create test
+    createTest(category:string, noOfQuestions:number,
+                        time:number, title:string):Observable<any>{
+      var user=JSON.parse(localStorage.getItem('user'));
+      
+      let data=JSON.stringify(
+        {
+          "type": "insert",
+          "args": {
+              "table": "McqTests",
+              "objects": [
+                  {
+                      "category": category,
+                      "noOfQuestions": noOfQuestions,
+                      "time": time,
+                      "author": user.hasura_id,
+                      "title":title
+                  }
+              ],
+              "returning":["id"]
+          }
+      }
+      );
+
+    let Hsheaders = new Headers();
+    Hsheaders.append('Content-Type', 'application/json');
+    Hsheaders.append('Authorization', 'Bearer '+user.auth_token); 
+    Hsheaders.append('X-Hasura-Role', 'contentManager');  
+    let Hsopts = new RequestOptions();
+    Hsopts.headers = Hsheaders;
+    return this.http.post(this.url,data,Hsopts)
+          .map(res =>{console.log(res);  return this.processHttpMsgService.extractData(res);
+          })
+          .catch(error => { return this.processHttpMsgService.handleError(error);}); 
+ 
+    }
+    //create test ends
 
 }
